@@ -83,7 +83,7 @@ def fft_weights(nfft, fs, nfilts, width, fmin, fmax, maxlen):
     | (c) 2004-2009 Dan Ellis dpwe@ee.columbia.edu  based on rastamat/audspec.m
     | (c) 2012 Jason Heeris (Python implementation)
     """
-    nfilts, ncols = int(nfilts), int(nfft)  # typing int for some compatibility reasons
+    nfilts, nfft = int(nfilts), int(nfft)  # typing int for some compatibility reasons
     ucirc = np.exp(1j * 2 * np.pi * np.arange(0, nfft / 2 + 1) / nfft)[None, ...]
 
     # Common ERB filter code factored out
