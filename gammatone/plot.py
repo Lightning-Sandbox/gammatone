@@ -55,12 +55,7 @@ class ERBFormatter(matplotlib.ticker.EngFormatter):
         return super().__call__(newval, pos)
 
 
-def gtgram_plot(
-        gtgram_function,
-        axes, x, fs,
-        window_time, hop_time, channels, f_min,
-        imshow_args=None
-        ):
+def gtgram_plot(gtgram_function, axes, x, fs, window_time, hop_time, channels, f_min, imshow_args=None):
     """
     Plots a spectrogram-like time frequency magnitude array based on gammatone
     subband filters.
@@ -77,14 +72,14 @@ def gtgram_plot(
     See :func:`gammatone.gtgram.gtgram` for details of the paramters.
     """
     # Set a nice formatter for the y-axis
-    formatter = ERBFormatter(f_min, fs/2, unit='Hz', places=0)
+    formatter = ERBFormatter(f_min, fs / 2, unit="Hz", places=0)
     axes.yaxis.set_major_formatter(formatter)
 
     # Figure out time axis scaling
     duration = len(x) / fs
 
     # Calculate 1:1 aspect ratio
-    aspect_ratio = duration/scipy.constants.golden
+    aspect_ratio = duration / scipy.constants.golden
 
     gtg = gtgram_function(x, fs, window_time, hop_time, channels, f_min)
     Z = np.flipud(20 * np.log10(gtg))
@@ -112,7 +107,7 @@ def render_audio_from_file(path, duration, function):
     # Average the stereo signal
     if duration:
         nframes = duration * samplerate
-        data = data[0 : nframes, :]
+        data = data[0:nframes, :]
 
     signal = data.mean(1)
 
@@ -126,12 +121,7 @@ def render_audio_from_file(path, duration, function):
     fig = matplotlib.pyplot.figure()
     axes = fig.add_axes([0.1, 0.1, 0.8, 0.8])
 
-    gtgram_plot(
-        function,
-        axes,
-        signal,
-        samplerate,
-        twin, thop, channels, fmin)
+    gtgram_plot(function, axes, signal, samplerate, twin, thop, channels, fmin)
 
     axes.set_title(os.path.basename(path))
     axes.set_xlabel("Time (s)")
@@ -146,23 +136,27 @@ def main():
     """
     parser = argparse.ArgumentParser(description=HELP_TEXT)
 
-    parser.add_argument(
-        'sound_file',
-        help="The sound file to graph. See the help text for supported formats.")
+    parser.add_argument("sound_file", help="The sound file to graph. See the help text for supported formats.")
 
     parser.add_argument(
-        '-d', '--duration', type=int,
+        "-d",
+        "--duration",
+        type=int,
         help="The time in seconds from the start of the audio to use for the "
-             "graph (default is to use the whole file)."
-        )
+        "graph (default is to use the whole file).",
+    )
 
     parser.add_argument(
-        '-a', '--accurate', action='store_const', dest='function',
-        const=gammatone.gtgram.gtgram, default=gammatone.fftweight.fft_gtgram,
+        "-a",
+        "--accurate",
+        action="store_const",
+        dest="function",
+        const=gammatone.gtgram.gtgram,
+        default=gammatone.fftweight.fft_gtgram,
         help="Use the full filterbank approach instead of the weighted FFT "
-             "approximation. This is much slower, and uses a lot of memory, but"
-             " is more accurate."
-        )
+        "approximation. This is much slower, and uses a lot of memory, but"
+        " is more accurate.",
+    )
 
     args = parser.parse_args()
 

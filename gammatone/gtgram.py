@@ -14,7 +14,7 @@ from .filters import make_erb_filters, centre_freqs, erb_filterbank
 
 
 def round_half_away_from_zero(num):
-    """ Implement the round-half-away-from-zero rule, where fractional parts of
+    """Implement the round-half-away-from-zero rule, where fractional parts of
     0.5 result in rounding up to the nearest positive integer for positive
     numbers, and down to the nearest negative number for negative integers.
     """
@@ -27,22 +27,15 @@ def gtgram_strides(fs, window_time, hop_time, filterbank_cols):
 
     @return a tuple of (window_size, hop_samples, output_columns)
     """
-    nwin        = int(round_half_away_from_zero(window_time * fs))
+    nwin = int(round_half_away_from_zero(window_time * fs))
     hop_samples = int(round_half_away_from_zero(hop_time * fs))
-    columns     = (1
-                    + int(
-                        np.floor(
-                            (filterbank_cols - nwin)
-                            / hop_samples
-                        )
-                    )
-                  )
+    columns = 1 + int(np.floor((filterbank_cols - nwin) / hop_samples))
 
     return (nwin, hop_samples, columns)
 
 
 def gtgram_xe(wave, fs, channels, f_min):
-    """ Calculate the intermediate ERB filterbank processed matrix """
+    """Calculate the intermediate ERB filterbank processed matrix"""
     cfs = centre_freqs(fs, channels, f_min)
     fcoefs = np.flipud(make_erb_filters(fs, cfs))
     xf = erb_filterbank(wave, fcoefs)
@@ -50,12 +43,7 @@ def gtgram_xe(wave, fs, channels, f_min):
     return xe
 
 
-def gtgram(
-    wave,
-    fs,
-    window_time, hop_time,
-    channels,
-    f_min):
+def gtgram(wave, fs, window_time, hop_time, channels, f_min):
     """
     Calculate a spectrogram-like time frequency magnitude array based on
     gammatone subband filters. The waveform ``wave`` (at sample rate ``fs``) is

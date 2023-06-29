@@ -11,16 +11,20 @@ from pkg_resources import resource_stream
 
 import gammatone.fftweight
 
-REF_DATA_FILENAME = 'data/test_fft2gtmx_data.mat'
+REF_DATA_FILENAME = "data/test_fft2gtmx_data.mat"
 
-INPUT_KEY  = 'fft2gtmx_inputs'
-RESULT_KEY = 'fft2gtmx_results'
+INPUT_KEY = "fft2gtmx_inputs"
+RESULT_KEY = "fft2gtmx_results"
 
-INPUT_COLS  = ('nfft', 'sr', 'nfilts', 'width', 'fmin', 'fmax', 'maxlen')
-RESULT_COLS = ('weights', 'gain',)
+INPUT_COLS = ("nfft", "sr", "nfilts", "width", "fmin", "fmax", "maxlen")
+RESULT_COLS = (
+    "weights",
+    "gain",
+)
+
 
 def load_reference_data():
-    """ Load test data generated from the reference code """
+    """Load test data generated from the reference code"""
     # Load test data
     with resource_stream(__name__, REF_DATA_FILENAME) as test_data:
         data = scipy.io.loadmat(test_data, squeeze_me=False)
@@ -55,7 +59,9 @@ def fft_weights_funcs(args, expected):
             int(args[0]),
             int(args[1]),
             int(args[2]),
-    ) for label in ("weights", "gains"))
+        )
+        for label in ("weights", "gains")
+    )
 
     def test_gains():
         assert gains.shape == expected_gains.shape
@@ -74,11 +80,11 @@ def fft_weights_funcs(args, expected):
 def test_fft_weights():
     for inputs, refs in load_reference_data():
         args = tuple(inputs[col] for col in INPUT_COLS)
-        expected = (refs['weights'], refs['gain'])
+        expected = (refs["weights"], refs["gain"])
         test_gains, test_weights = fft_weights_funcs(args, expected)
         yield test_gains
         yield test_weights
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     nose.main()
