@@ -9,6 +9,6 @@ setup(
     version="1.0.1",
     packages=find_packages(exclude=["tests"]),
     install_requires=["numpy", "scipy", "matplotlib"],
-    extras={"test": ["nose", "mock"]},
+    extras_require={"test": ["nose", "mock"]},
     entry_points={"console_scripts": ["gammatone = gammatone.plot:main"]},
 )
