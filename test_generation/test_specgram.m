@@ -1,5 +1,5 @@
 % Copyright 2014 Jason Heeris, jason.heeris@gmail.com
-% 
+%
 % This file is part of the gammatone toolkit, and is licensed under the 3-clause
 % BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 function test_specgram()
@@ -9,10 +9,10 @@ function test_specgram()
     %  fs
     %  window_size
     %  hop (technically the function takes the overlap, but only to recalculate this)
-    
+
     % Ensure reproducible tests
     rand('state', [3 1 4 1 5 9 2 7]);
-    
+
     specgram_inputs = {
         'sawtooth_01', sawtooth(2*pi*10100*[0:22050 - 1]'/22050, 0.5), 2048, 22050, 551, 221; ...
         'sin220_01'  , sin(2*pi*220*[0:4800 - 1]'/48000), 1024, 48000, 480, 480; ...
@@ -21,13 +21,13 @@ function test_specgram()
         'rand_02'    , rand([1, 9600 - 1]), 2048, 96000, 960, 480; ...
         'rand_03'    , rand([1, 4800 - 1]), 1024, 48000, 480, 480; ...
     };
-    
+
     % Mocked intermediate results for unit testing
     specgram_mocks = {};
-    
+
     % Actual results
     specgram_results = {};
-    
+
     for tnum=1:size(specgram_inputs)(1)
         [name, wave, nfft, fs, nwin, nhop] = deal(specgram_inputs{tnum,:});
 
@@ -41,17 +41,17 @@ function test_specgram()
             nwin, ...
             nwin - nhop ...
         );
-        
+
         specgram_mocks(tnum, :) = { ...
             window, ...
         };
-    
+
         specgram_results(tnum, :) = { ...
             res, ...
         };
-    
+
     end;
-    
+
     results_file = fullfile('..', 'tests', 'data', 'test_specgram_data.mat');
     save(results_file, 'specgram_inputs', 'specgram_mocks', 'specgram_results');
 end;

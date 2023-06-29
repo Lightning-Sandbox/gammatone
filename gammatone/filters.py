@@ -1,5 +1,5 @@
 # Copyright 2014 Jason Heeris, jason.heeris@gmail.com
-# 
+#
 # This file is part of the gammatone toolkit, and is licensed under the 3-clause
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 """
@@ -24,7 +24,7 @@ def erb_point(low_freq, high_freq, fraction):
     ``high_freq``, determined by ``fraction``. When ``fraction`` is ``1``,
     ``low_freq`` will be returned. When ``fraction`` is ``0``, ``high_freq``
     will be returned.
-    
+
     ``fraction`` can actually be outside the range ``[0, 1]``, which in general
     isn't very meaningful, but might be useful when ``fraction`` is rounded a
     little above or below ``[0, 1]`` (eg. for plot axis labels).
@@ -49,7 +49,7 @@ def erb_point(low_freq, high_freq, fraction):
         ) *
         (high_freq + ear_q * min_bw)
     )
-    
+
     return erb_point
 
 
@@ -60,7 +60,7 @@ def erb_space(
     """
     This function computes an array of ``num`` frequencies uniformly spaced
     between ``high_freq`` and ``low_freq`` on an ERB scale.
-    
+
     For a definition of ERB, see Moore, B. C. J., and Glasberg, B. R. (1983).
     "Suggested formulae for calculating auditory-filter bandwidths and
     excitation patterns," J. Acoust. Soc. Am. 74, 750-753.
@@ -77,7 +77,7 @@ def centre_freqs(fs, num_freqs, cutoff):
     Calculates an array of centre frequencies (for :func:`make_erb_filters`)
     from a sampling frequency, lower cutoff frequency and the desired number of
     filters.
-    
+
     :param fs: sampling rate
     :param num_freqs: number of centre frequencies to calculate
     :type num_freqs: int
@@ -89,23 +89,23 @@ def centre_freqs(fs, num_freqs, cutoff):
 
 def make_erb_filters(fs, centre_freqs, width=1.0):
     """
-    This function computes the filter coefficients for a bank of 
+    This function computes the filter coefficients for a bank of
     Gammatone filters. These filters were defined by Patterson and Holdworth for
-    simulating the cochlea. 
-    
+    simulating the cochlea.
+
     The result is returned as a :class:`ERBCoeffArray`. Each row of the
     filter arrays contains the coefficients for four second order filters. The
     transfer function for these four filters share the same denominator (poles)
     but have different numerators (zeros). All of these coefficients are
     assembled into one vector that the ERBFilterBank can take apart to implement
     the filter.
-    
+
     The filter bank contains "numChannels" channels that extend from
     half the sampling rate (fs) to "lowFreq". Alternatively, if the numChannels
     input argument is a vector, then the values of this vector are taken to be
     the center frequency of each desired filter. (The lowFreq argument is
     ignored in this case.)
-    
+
     Note this implementation fixes a problem in the original code by
     computing four separate second order filters. This avoids a big problem with
     round off errors in cases of very small cfs (100Hz) and large sample rates
@@ -115,10 +115,10 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
     location. These small errors lead to poles outside the unit circle and
     instability. Thanks to Julius Smith for leading me to the proper
     explanation.
-    
+
     Execute the following code to evaluate the frequency response of a 10
     channel filterbank::
-    
+
         fcoefs = MakeERBFilters(16000,10,100);
         y = ERBFilterBank([1 zeros(1,511)], fcoefs);
         resp = 20*log10(abs(fft(y')));
@@ -126,7 +126,7 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
         semilogx(freqScale(1:255),resp(1:255,:));
         axis([100 16000 -60 0])
         xlabel('Frequency (Hz)'); ylabel('Filter Response (dB)');
-    
+
     | Rewritten by Malcolm Slaney@Interval.  June 11, 1998.
     | (c) 1998 Interval Research Corporation
     |
@@ -151,12 +151,12 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
     B0 = 1
     B1 = -2 * np.cos(arg) / np.exp(B * T)
     B2 = np.exp(-2 * B * T)
-    
+
     rt_pos = np.sqrt(3 + 2 ** 1.5)
     rt_neg = np.sqrt(3 - 2 ** 1.5)
-    
+
     common = -T * np.exp(-(B * T))
-    
+
     # TODO: This could be simplified to a matrix calculation involving the
     # constant first term and the alternating rt_pos/rt_neg and +/-1 second
     # terms
@@ -183,13 +183,13 @@ def make_erb_filters(fs, centre_freqs, width=1.0):
         )
 
     allfilts = np.ones_like(centre_freqs)
-    
+
     fcoefs = np.column_stack([
         A0 * allfilts, A11, A12, A13, A14, A2*allfilts,
         B0 * allfilts, B1, B2,
         gain
     ])
-    
+
     return fcoefs
 
 
@@ -197,14 +197,14 @@ def erb_filterbank(wave, coefs):
     """
     :param wave: input data (one dimensional sequence)
     :param coefs: gammatone filter coefficients
-    
+
     Process an input waveform with a gammatone filter bank. This function takes
     a single sound vector, and returns an array of filter outputs, one channel
     per row.
-    
+
     The fcoefs parameter, which completely specifies the Gammatone filterbank,
     should be designed with the :func:`make_erb_filters` function.
-    
+
     | Malcolm Slaney @ Interval, June 11, 1998.
     | (c) 1998 Interval Research Corporation
     | Thanks to Alain de Cheveigne' for his suggestions and improvements.
@@ -212,7 +212,7 @@ def erb_filterbank(wave, coefs):
     | (c) 2013 Jason Heeris (Python implementation)
     """
     output = np.zeros((coefs[:,9].shape[0], wave.shape[0]))
-    
+
     gain = coefs[:, 9]
     # A0, A11, A2
     As1 = coefs[:, (0, 1, 5)]
@@ -224,7 +224,7 @@ def erb_filterbank(wave, coefs):
     As4 = coefs[:, (0, 4, 5)]
     # B0, B1, B2
     Bs = coefs[:, 6:9]
-    
+
     # Loop over channels
     for idx in range(0, coefs.shape[0]):
         # These seem to be reversed (in the sense of A/B order), but that's what
@@ -236,5 +236,5 @@ def erb_filterbank(wave, coefs):
         y3 = sgn.lfilter(As3[idx], Bs[idx], y2)
         y4 = sgn.lfilter(As4[idx], Bs[idx], y3)
         output[idx, :] = y4 / gain[idx]
-        
+
     return output

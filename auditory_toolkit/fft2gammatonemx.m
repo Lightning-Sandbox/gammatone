@@ -6,7 +6,7 @@ function [wts,gain] = fft2gammatonemx(nfft, sr, nfilts, width, minfreq, maxfreq,
 %      output bands required (default 64), and width is the
 %      constant width of each band in Bark (default 1).
 %      minfreq, maxfreq specify range covered in Hz (100, sr/2).
-%      While wts has nfft columns, the second half are all zero. 
+%      While wts has nfft columns, the second half are all zero.
 %      Hence, aud spectrum is
 %      fft2gammatonemx(nfft,sr)*abs(fft(xincols,nfft));
 %      maxlen truncates the rows to this many bins
@@ -50,7 +50,7 @@ for i = 1:nfilts
     % point on unit circle of maximum gain, from differentiating magnitude
     cosomegamax = (1+r*r)/(2*r)*cos(theta);
     if abs(cosomegamax) > 1
-      if theta < pi/2;  omegamax = 0; 
+      if theta < pi/2;  omegamax = 0;
       else              omegamax = pi;   end
     else
       omegamax = acos(cosomegamax);
@@ -63,15 +63,15 @@ for i = 1:nfilts
     % poles and zeros, following Malcolm's MakeERBFilter
     T = 1/sr;
     A11 = -(2*T*cos(2*cf*pi*T)./exp(B*T) + 2*sqrt(3+2^1.5)*T*sin(2* ...
-                                                      cf*pi*T)./exp(B*T))/2; 
+                                                      cf*pi*T)./exp(B*T))/2;
     A12 = -(2*T*cos(2*cf*pi*T)./exp(B*T) - 2*sqrt(3+2^1.5)*T*sin(2* ...
                                                       cf*pi*T)./exp(B*T))/2;
     A13 = -(2*T*cos(2*cf*pi*T)./exp(B*T) + 2*sqrt(3-2^1.5)*T*sin(2* ...
-                                                      cf*pi*T)./exp(B*T))/2; 
+                                                      cf*pi*T)./exp(B*T))/2;
     A14 = -(2*T*cos(2*cf*pi*T)./exp(B*T) - 2*sqrt(3-2^1.5)*T*sin(2* ...
-                                                      cf*pi*T)./exp(B*T))/2; 
+                                                      cf*pi*T)./exp(B*T))/2;
     zros = -[A11 A12 A13 A14]/T;
-    
+
     gain(i) =  abs((-2*exp(4*j*cf*pi*T)*T + ...
                 2*exp(-(B*T) + 2*j*cf*pi*T).*T.* ...
                 (cos(2*cf*pi*T) - sqrt(3 - 2^(3/2))* ...
@@ -96,4 +96,3 @@ for i = 1:nfilts
 end
 
 wts = wts(:,1:maxlen);
-
