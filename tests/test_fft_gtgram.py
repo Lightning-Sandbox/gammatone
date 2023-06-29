@@ -39,10 +39,7 @@ def load_reference_data():
 
 def test_fft_specgram_window():
     for inputs, mocks, refs in load_reference_data():
-        args = (
-            refs["nfft"],
-            refs["nwin"],
-        )
+        args = (refs["nfft"], refs["nwin"])
 
         expected = (refs["window"],)
 
@@ -67,9 +64,21 @@ class FFTGtgramWindowTester:
 
 def test_fft_gtgram():
     for inputs, mocks, refs in load_reference_data():
-        args = (inputs["fs"], inputs["twin"], inputs["thop"], inputs["channels"], inputs["fmin"])
-
-        yield FFTGammatonegramTester(inputs["name"][0], args, inputs["wave"], mocks["wts"], refs["window"], refs["res"])
+        args = (
+            inputs["fs"],
+            inputs["twin"],
+            inputs["thop"],
+            inputs["channels"],
+            inputs["fmin"],
+        )
+        yield FFTGammatonegramTester(
+            inputs["name"][0],
+            args,
+            inputs["wave"],
+            mocks["wts"],
+            refs["window"],
+            refs["res"],
+        )
 
 
 class FFTGammatonegramTester:

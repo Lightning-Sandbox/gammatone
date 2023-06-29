@@ -55,7 +55,17 @@ class ERBFormatter(matplotlib.ticker.EngFormatter):
         return super().__call__(newval, pos)
 
 
-def gtgram_plot(gtgram_function, axes, x, fs, window_time, hop_time, channels, f_min, imshow_args=None):
+def gtgram_plot(
+    gtgram_function,
+    axes,
+    x,
+    fs,
+    window_time,
+    hop_time,
+    channels,
+    f_min,
+    imshow_args=None,
+):
     """
     Plots a spectrogram-like time frequency magnitude array based on gammatone
     subband filters.
@@ -136,7 +146,10 @@ def main():
     """
     parser = argparse.ArgumentParser(description=HELP_TEXT)
 
-    parser.add_argument("sound_file", help="The sound file to graph. See the help text for supported formats.")
+    parser.add_argument(
+        "sound_file",
+        help="The sound file to graph. See the help text for supported formats.",
+    )
 
     parser.add_argument(
         "-d",

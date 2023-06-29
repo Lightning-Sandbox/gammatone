@@ -39,12 +39,7 @@ def load_reference_data():
 
 def test_specgram():
     for inputs, mocks, refs in load_reference_data():
-        args = (
-            inputs["nfft"],
-            inputs["fs"],
-            inputs["nwin"],
-            inputs["nhop"],
-        )
+        args = (inputs["nfft"], inputs["fs"], inputs["nwin"], inputs["nhop"])
 
         yield SpecgramTester(inputs["name"][0], args, inputs["wave"], mocks["window"], refs["res"])
 

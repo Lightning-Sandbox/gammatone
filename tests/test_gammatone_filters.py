@@ -35,10 +35,7 @@ def load_reference_data():
 
 def test_make_ERB_filters_known_values():
     for inputs, refs in load_reference_data():
-        args = (
-            inputs["fs"],
-            inputs["cfs"],
-        )
+        args = (inputs["fs"], inputs["cfs"])
 
         expected = (refs["fcoefs"],)
 

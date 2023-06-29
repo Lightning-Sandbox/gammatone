@@ -17,10 +17,7 @@ INPUT_KEY = "fft2gtmx_inputs"
 RESULT_KEY = "fft2gtmx_results"
 
 INPUT_COLS = ("nfft", "sr", "nfilts", "width", "fmin", "fmax", "maxlen")
-RESULT_COLS = (
-    "weights",
-    "gain",
-)
+RESULT_COLS = ("weights", "gain")
 
 
 def load_reference_data():
@@ -55,10 +52,7 @@ def fft_weights_funcs(args, expected):
 
     (test_weights_desc, test_gains_desc) = (
         "FFT weights {:s} for nfft = {:d}, fs = {:d}, nfilts = {:d}".format(
-            label,
-            int(args[0]),
-            int(args[1]),
-            int(args[2]),
+            label, int(args[0]), int(args[1]), int(args[2])
         )
         for label in ("weights", "gains")
     )

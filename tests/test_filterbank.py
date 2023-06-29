@@ -35,10 +35,7 @@ def load_reference_data():
 
 def test_ERB_filterbank_known_values():
     for inputs, refs in load_reference_data():
-        args = (
-            inputs["wave"],
-            inputs["fcoefs"],
-        )
+        args = (inputs["wave"], inputs["fcoefs"])
 
         expected = (refs["filterbank"],)
 

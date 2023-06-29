@@ -35,11 +35,7 @@ def load_reference_data():
 
 def test_ERB_space_known_values():
     for inputs, refs in load_reference_data():
-        args = (
-            inputs["f_low"],
-            inputs["f_high"],
-            inputs["num_f"],
-        )
+        args = (inputs["f_low"], inputs["f_high"], inputs["num_f"])
 
         expected = (refs["cfs"],)
 
@@ -51,9 +47,7 @@ class ERBSpaceTester:
         self.args = args
         self.expected = expected[0]
         self.description = "ERB space for {:.1f} {:.1f} {:d}".format(
-            float(self.args[0]),
-            float(self.args[1]),
-            int(self.args[2]),
+            float(self.args[0]), float(self.args[1]), int(self.args[2])
         )
 
     def __call__(self):

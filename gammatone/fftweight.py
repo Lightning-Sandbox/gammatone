@@ -13,10 +13,7 @@ import gammatone.filters as filters
 import gammatone.gtgram as gtgram
 
 
-def specgram_window(
-    nfft,
-    nwin,
-):
+def specgram_window(nfft, nwin):
     """
     Window calculation used in specgram replacement function. Hann window of
     width `nwin` centred in an array of width `nfft`.

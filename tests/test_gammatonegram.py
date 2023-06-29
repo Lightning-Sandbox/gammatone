@@ -68,7 +68,13 @@ class GTGramStrideTester:
 
 def test_gtgram():
     for inputs, mocks, refs in load_reference_data():
-        args = (inputs["fs"], inputs["twin"], inputs["thop"], inputs["channels"], inputs["fmin"])
+        args = (
+            inputs["fs"],
+            inputs["twin"],
+            inputs["thop"],
+            inputs["channels"],
+            inputs["fmin"],
+        )
 
         yield GammatonegramTester(inputs["name"], args, inputs["wave"], mocks["erb_fb"], refs["gtgram"])
 
