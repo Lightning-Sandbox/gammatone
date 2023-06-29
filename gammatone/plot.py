@@ -94,7 +94,7 @@ def gtgram_plot(
     gtg = gtgram_function(x, fs, window_time, hop_time, channels, f_min)
     Z = np.flipud(20 * np.log10(gtg))
 
-    img = axes.imshow(Z, extent=[0, duration, 1, 0], aspect=aspect_ratio)
+    axes.imshow(Z, extent=[0, duration, 1, 0], aspect=aspect_ratio)
 
 
 # Entry point for CLI script

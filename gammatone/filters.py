@@ -7,10 +7,8 @@ This module contains functions for constructing sets of equivalent rectangular
 bandwidth gammatone filters.
 """
 from __future__ import division
-from collections import namedtuple
 
 import numpy as np
-import scipy as sp
 from scipy import signal as sgn
 
 DEFAULT_FILTER_NUM = 100
@@ -34,7 +32,6 @@ def erb_point(low_freq, high_freq, fraction):
     # TODO: Factor these parameters out
     ear_q = 9.26449  # Glasberg and Moore Parameters
     min_bw = 24.7
-    order = 1
 
     # All of the following expressions are derived in Apple TR #35, "An
     # Efficient Implementation of the Patterson-Holdsworth Cochlear Filter
