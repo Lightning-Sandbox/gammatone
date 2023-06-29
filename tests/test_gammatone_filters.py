@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright 2014 Jason Heeris, jason.heeris@gmail.com
-# 
+#
 # This file is part of the gammatone toolkit, and is licensed under the 3-clause
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 import nose
@@ -23,9 +23,9 @@ def load_reference_data():
     # Load test data
     with resource_stream(__name__, REF_DATA_FILENAME) as test_data:
         data = scipy.io.loadmat(test_data, squeeze_me=False)
-    
+
     zipped_data = zip(data[INPUT_KEY], data[RESULT_KEY])
-    
+
     for inputs, refs in zipped_data:
         input_dict = dict(zip(INPUT_COLS, map(np.squeeze, inputs)))
         ref_dict = dict(zip(RESULT_COLS, map(np.squeeze, refs)))
@@ -38,14 +38,14 @@ def test_make_ERB_filters_known_values():
             inputs['fs'],
             inputs['cfs'],
         )
-        
+
         expected = (refs['fcoefs'],)
-        
+
         yield MakeERBFiltersTester(args, expected)
 
 
 class MakeERBFiltersTester:
-    
+
     def __init__(self, args, expected):
         self.fs = args[0]
         self.cfs = args[1]
@@ -56,7 +56,7 @@ class MakeERBFiltersTester:
                 float(self.cfs[0]),
                 float(self.cfs[-1])
         ))
-    
+
     def __call__(self):
         result = gammatone.filters.make_erb_filters(self.fs, self.cfs)
         assert np.allclose(result, self.expected, rtol=1e-6, atol=1e-12)

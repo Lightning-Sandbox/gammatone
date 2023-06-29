@@ -1,7 +1,7 @@
 function output = ERBFilterBank(x, fcoefs)
 % function output = ERBFilterBank(x, fcoefs)
-% Process an input waveform with a gammatone filter bank. This function 
-% takes a single sound vector, and returns an array of filter outputs, one 
+% Process an input waveform with a gammatone filter bank. This function
+% takes a single sound vector, and returns an array of filter outputs, one
 % channel per row.
 %
 % The fcoefs parameter, which completely specifies the Gammatone filterbank,
@@ -11,7 +11,7 @@ function output = ERBFilterBank(x, fcoefs)
 %
 
 % Malcolm Slaney @ Interval, June 11, 1998.
-% (c) 1998 Interval Research Corporation  
+% (c) 1998 Interval Research Corporation
 % Thanks to Alain de Cheveigne' for his suggestions and improvements.
 
 if nargin < 1
@@ -39,7 +39,7 @@ A2  = fcoefs(:,6);
 B0  = fcoefs(:,7);
 B1  = fcoefs(:,8);
 B2  = fcoefs(:,9);
-gain= fcoefs(:,10);	
+gain= fcoefs(:,10);
 
 output = zeros(size(gain,1), length(x));
 for chan = 1: size(gain,1)

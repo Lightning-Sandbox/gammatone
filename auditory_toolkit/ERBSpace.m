@@ -32,4 +32,3 @@ order = 1;
 % Filter Bank."  See pages 33-34.
 cfArray = -(EarQ*minBW) + exp((1:N)'*(-log(highFreq + EarQ*minBW) + ...
 		log(lowFreq + EarQ*minBW))/N) * (highFreq + EarQ*minBW);
-

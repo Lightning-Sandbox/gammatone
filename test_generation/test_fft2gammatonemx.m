@@ -1,11 +1,11 @@
 % Copyright 2014 Jason Heeris, jason.heeris@gmail.com
-% 
+%
 % This file is part of the gammatone toolkit, and is licensed under the 3-clause
 % BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 function test_fft2gtmx()
     % Arguments:
     % nfft, sr, nfilts, width, minfreq, maxfreq, maxlen
-    
+
     fft2gtmx_inputs = { ...
         256 , 48000, 64 , 1   , 100, 48000/2 , 256; ...
         % Vary the width parameter
@@ -27,15 +27,15 @@ function test_fft2gtmx()
         1024, 48000, 128, 1   , 100, 48000/2 , 128; ...
         64  , 44100, 32 , 1   , 20 , 44100/2 , 64; ...
     };
-    
+
     fft2gtmx_results = {};
-    
+
     for tnum=1:size(fft2gtmx_inputs)(1)
         [nfft, sr, nfilts, width, minfreq, maxfreq, maxlen] = deal(fft2gtmx_inputs{tnum,:});
         [wts, gain] = fft2gammatonemx(nfft, sr, nfilts, width, minfreq, maxfreq, maxlen);
         fft2gtmx_results(tnum, :) = {wts, gain};
     end
-    
+
     results_file = fullfile('..', 'tests', 'data', 'test_fft2gtmx_data.mat');
     save(results_file, 'fft2gtmx_inputs', 'fft2gtmx_results');
 end

@@ -1,14 +1,14 @@
 function [fcoefs,cf]=MakeERBFilters(fs,numChannels,lowFreq)
 % function [fcoefs,cf]=MakeERBFilters(fs,numChannels,lowFreq)
-% This function computes the filter coefficients for a bank of 
-% Gammatone filters.  These filters were defined by Patterson and 
-% Holdworth for simulating the cochlea.  
-% 
-% The result is returned as an array of filter coefficients.  Each row 
-% of the filter arrays contains the coefficients for four second order 
+% This function computes the filter coefficients for a bank of
+% Gammatone filters.  These filters were defined by Patterson and
+% Holdworth for simulating the cochlea.
+%
+% The result is returned as an array of filter coefficients.  Each row
+% of the filter arrays contains the coefficients for four second order
 % filters.  The transfer function for these four filters share the same
 % denominator (poles) but have different numerators (zeros).  All of these
-% coefficients are assembled into one vector that the ERBFilterBank 
+% coefficients are assembled into one vector that the ERBFilterBank
 % can take apart to implement the filter.
 %
 % The filter bank contains "numChannels" channels that extend from
@@ -38,7 +38,7 @@ function [fcoefs,cf]=MakeERBFilters(fs,numChannels,lowFreq)
 %	xlabel('Frequency (Hz)'); ylabel('Filter Response (dB)');
 
 % Rewritten by Malcolm Slaney@Interval.  June 11, 1998.
-% (c) 1998 Interval Research Corporation  
+% (c) 1998 Interval Research Corporation
 
 T = 1/fs;
 if length(numChannels) == 1
@@ -90,7 +90,7 @@ gain = abs((-2*exp(4*i*cf*pi*T)*T + ...
            (cos(2*cf*pi*T) + sqrt(3 + 2^(3/2))*sin(2*cf*pi*T))) ./ ...
           (-2 ./ exp(2*B*T) - 2*exp(4*i*cf*pi*T) +  ...
            2*(1 + exp(4*i*cf*pi*T))./exp(B*T)).^4);
-	
+
 allfilts = ones(length(cf),1);
 fcoefs = [A0*allfilts A11 A12 A13 A14 A2*allfilts B0*allfilts B1 B2 gain];
 
@@ -104,7 +104,7 @@ if (0)						% Test Code
 	B0  = fcoefs(:,7);
 	B1  = fcoefs(:,8);
 	B2  = fcoefs(:,9);
-	gain= fcoefs(:,10);	
+	gain= fcoefs(:,10);
 	chan=1;
 	x = [1 zeros(1, 511)];
 	y1=filter([A0(chan)/gain(chan) A11(chan)/gain(chan) ...

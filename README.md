@@ -1,12 +1,10 @@
-Gammatone Filterbank Toolkit
-============================
+# Gammatone Filterbank Toolkit
 
 *Utilities for analysing sound using perceptual models of human hearing.*
 
 Jason Heeris, 2013
 
-Summary
--------
+## Summary
 
 This is a port of Malcolm Slaney's and Dan Ellis' gammatone filterbank MATLAB
 code, detailed below, to Python 2 and 3 using Numpy and Scipy. It analyses signals by
@@ -15,8 +13,7 @@ spectrogram analysis.
 
 ![Gammatone-based spectrogram of Für Elise](doc/FurElise.png)
 
-Installation
-------------
+## Installation
 
 You can install directly from this git repository using:
 
@@ -40,14 +37,13 @@ python setup.py install
 
 ### Dependencies
 
- - numpy
- - scipy
- - nose
- - mock
- - matplotlib
+- numpy
+- scipy
+- nose
+- mock
+- matplotlib
 
-Using the Code
---------------
+## Using the Code
 
 See the [API documentation](http://detly.github.io/gammatone/). For a
 demonstration, find a `.wav` file (for example,
@@ -64,16 +60,13 @@ installed via `pip` or `setup.py install`, you should also be able to just run:
 gammatone FurElise.wav -d 10
 ```
 
-Basis
------
+## Basis
 
 This project is based on research into how humans perceive audio, originally
 published by Malcolm Slaney:
 
 [Malcolm Slaney (1998) "Auditory Toolbox Version 2", Technical Report #1998-010,
-Interval Research Corporation, 1998.](
-http://cobweb.ecn.purdue.edu/~malcolm/interval/1998-010/
-)
+Interval Research Corporation, 1998.](http://cobweb.ecn.purdue.edu/~malcolm/interval/1998-010/)
 
 Slaney's report describes a way of modelling how the human ear perceives,
 emphasises and separates different frequencies of sound. A series of gammatone
@@ -102,12 +95,9 @@ implementation was later extended by Dan Ellis, who found a way to approximate a
 matrix of weights that can be applied to the output of a FFT so that a
 Fourier-based spectrogram can easily be transformed into such an approximation.
 
-Ellis' code and documentation is here: [Gammatone-like spectrograms](
-http://labrosa.ee.columbia.edu/matlab/gammatonegram/
-)
+Ellis' code and documentation is here: [Gammatone-like spectrograms](http://labrosa.ee.columbia.edu/matlab/gammatonegram/)
 
-Interest
---------
+## Interest
 
 I became interested in this because of my background in science communication
 and my general interest in the teaching of signal processing. I find that the
@@ -123,23 +113,21 @@ The gammatone filterbank approach seems to be closer to what someone might
 intuitively expect a visualisation of sound to look like, and can help develop
 an intuition about alternative representations of signals.
 
-Verifying the port
-------------------
+## Verifying the port
 
 Since this is a port of existing MATLAB code, I've written tests to verify the
 Python implementation against the original code. These tests aren't unit tests,
 but they do generally test single functions. Running the tests has the same
 workflow:
 
-  1. Run the scripts in the `test_generation` directory. This will create a
-     `.mat` file containing test data in `tests/data`.
+1. Run the scripts in the `test_generation` directory. This will create a
+   `.mat` file containing test data in `tests/data`.
 
-  2. Run `nosetest3` in the top level directory. This will find and run all the
-     tests in the `tests` directory.
+1. Run `nosetest3` in the top level directory. This will find and run all the
+   tests in the `tests` directory.
 
 Although I'm usually loathe to check in generated files to version control, I'm
 willing to make an exception for the `.mat` files containing the test data. My
 reasoning is that they represent the decoupling of my code from the MATLAB code,
 and if the two projects were separated, they would be considered a part of the
 Python code, not the original MATLAB code.
-
