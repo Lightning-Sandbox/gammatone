@@ -2,6 +2,9 @@
 
 *Utilities for analysing sound using perceptual models of human hearing.*
 
+[![CI testing](https://github.com/Lightning-Sandbox/gammatone/actions/workflows/ci-testing.yml/badge.svg?event=push)](https://github.com/Lightning-Sandbox/gammatone/actions/workflows/ci-testing.yml)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Lightning-Sandbox/gammatone/main.svg)](https://results.pre-commit.ci/latest/github/Lightning-Sandbox/gammatone/main)
+
 ## Summary
 
 This is a port of Malcolm Slaney's and Dan Ellis' gammatone filterbank MATLAB
