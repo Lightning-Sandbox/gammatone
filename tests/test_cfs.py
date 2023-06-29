@@ -26,18 +26,16 @@ def test_centre_freqs():
 
 
 class CentreFreqsTester:
-
     def __init__(self, args, params):
         self.args = args
         self.params = params
         self.description = "Centre freqs for {:g} {:d} {:g}".format(*args)
 
-
-    @patch('gammatone.filters.erb_space')
+    @patch("gammatone.filters.erb_space")
     def __call__(self, erb_space_mock):
         gammatone.filters.centre_freqs(*self.args)
         erb_space_mock.assert_called_with(*self.params)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     nose.main()

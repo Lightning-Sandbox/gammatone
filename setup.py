@@ -5,21 +5,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "Gammatone",
-    version = "1.0",
-    packages = find_packages(),
-
-    install_requires = [
-        'numpy',
-        'scipy',
-        'nose',
-        'mock',
-        'matplotlib',
-    ],
-
-    entry_points = {
-        'console_scripts': [
-            'gammatone = gammatone.plot:main',
-        ]
-    }
+    name="Gammatone",
+    version="1.0",
+    packages=find_packages(),
+    install_requires=["numpy", "scipy", "nose", "mock", "matplotlib"],
+    entry_points={"console_scripts": ["gammatone = gammatone.plot:main"]},
 )

@@ -12,10 +12,8 @@ import numpy as np
 import gammatone.filters as filters
 import gammatone.gtgram as gtgram
 
-def specgram_window(
-        nfft,
-        nwin,
-    ):
+
+def specgram_window(nfft, nwin):
     """
     Window calculation used in specgram replacement function. Hann window of
     width `nwin` centred in an array of width `nfft`.
@@ -23,15 +21,15 @@ def specgram_window(
     halflen = int(nwin // 2)
     halff = int(nfft // 2)  # midpoint of win
     acthalflen = int(np.floor(min(halff, halflen)))
-    halfwin = 0.5 * ( 1 + np.cos(np.pi * np.arange(0, halflen+1)/halflen))
+    halfwin = 0.5 * (1 + np.cos(np.pi * np.arange(0, halflen + 1) / halflen))
     win = np.zeros((int(nfft),))  # typing int for some compatibility reasons
-    win[halff:halff+acthalflen] = halfwin[0:acthalflen]
-    win[halff:halff-acthalflen:-1] = halfwin[0:acthalflen]
+    win[halff : halff + acthalflen] = halfwin[0:acthalflen]
+    win[halff : halff - acthalflen : -1] = halfwin[0:acthalflen]
     return win
 
 
 def specgram(x, n, sr, w, h):
-    """ Substitute for Matlab's specgram, calculates a simple spectrogram.
+    """Substitute for Matlab's specgram, calculates a simple spectrogram.
 
     :param x: The signal to analyse
     :param n: The FFT length
@@ -48,26 +46,19 @@ def specgram(x, n, sr, w, h):
     c = 0
 
     # pre-allocate output array
-    ncols = 1 + int(np.floor((s - n)/h))
+    ncols = 1 + int(np.floor((s - n) / h))
     d = np.zeros(((1 + n // 2), ncols), np.dtype(complex))
 
     for b in range(0, s - n, h):
-      u = win * x[b : b + n]
-      t = np.fft.fft(u)
-      d[:, c] = t[0 : (1 + n // 2)].T
-      c = c + 1
+        u = win * x[b : b + n]
+        t = np.fft.fft(u)
+        d[:, c] = t[0 : (1 + n // 2)].T
+        c = c + 1
 
     return d
 
 
-def fft_weights(
-    nfft,
-    fs,
-    nfilts,
-    width,
-    fmin,
-    fmax,
-    maxlen):
+def fft_weights(nfft, fs, nfilts, width, fmin, fmax, maxlen):
     """
     :param nfft: the source FFT size
     :param sr: sampling rate (Hz)
@@ -98,9 +89,7 @@ def fft_weights(
     # Common ERB filter code factored out
     cf_array = filters.erb_space(fmin, fmax, nfilts)[::-1]
 
-    _, A11, A12, A13, A14, _, _, _, B2, gain = (
-        filters.make_erb_filters(fs, cf_array, width).T
-    )
+    _, A11, A12, A13, A14, _, _, _, B2, gain = filters.make_erb_filters(fs, cf_array, width).T
 
     A11, A12, A13, A14 = A11[..., None], A12[..., None], A13[..., None], A14[..., None]
 
@@ -112,24 +101,21 @@ def fft_weights(
 
     weights = np.zeros((nfilts, nfft))
 
-    weights[:, 0:ucirc.shape[1]] = (
-          np.abs(ucirc + A11 * fs) * np.abs(ucirc + A12 * fs)
-        * np.abs(ucirc + A13 * fs) * np.abs(ucirc + A14 * fs)
+    weights[:, 0 : ucirc.shape[1]] = (
+        np.abs(ucirc + A11 * fs)
+        * np.abs(ucirc + A12 * fs)
+        * np.abs(ucirc + A13 * fs)
+        * np.abs(ucirc + A14 * fs)
         * np.abs(fs * (pole - ucirc) * (pole.conj() - ucirc)) ** (-GTord)
         / gain[..., None]
     )
 
-    weights = weights[:, 0:int(maxlen)]
+    weights = weights[:, 0 : int(maxlen)]
 
     return weights, gain
 
 
-def fft_gtgram(
-    wave,
-    fs,
-    window_time, hop_time,
-    channels,
-    f_min):
+def fft_gtgram(wave, fs, window_time, hop_time, channels, f_min):
     """
     Calculate a spectrogram-like time frequency magnitude array based on
     an FFT-based approximation to gammatone subband filters.
@@ -147,20 +133,12 @@ def fft_gtgram(
     |
     | (c) 2013 Jason Heeris (Python implementation)
     """
-    width = 1 # Was a parameter in the MATLAB code
+    width = 1  # Was a parameter in the MATLAB code
 
     nfft = int(2 ** (np.ceil(np.log2(2 * window_time * fs))))
-    nwin, nhop, _ = gtgram.gtgram_strides(fs, window_time, hop_time, 0);
+    nwin, nhop, _ = gtgram.gtgram_strides(fs, window_time, hop_time, 0)
 
-    gt_weights, _ = fft_weights(
-            nfft,
-            fs,
-            channels,
-            width,
-            f_min,
-            fs / 2,
-            nfft / 2 + 1
-        )
+    gt_weights, _ = fft_weights(nfft, fs, channels, width, f_min, fs / 2, nfft / 2 + 1)
 
     sgram = specgram(wave, nfft, fs, nwin, nhop)
 
