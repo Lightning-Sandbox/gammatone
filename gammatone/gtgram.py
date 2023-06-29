@@ -69,8 +69,8 @@ def gtgram(
     |
     | (c) 2013 Jason Heeris (Python implementation)
     """
-    xe = gtgram_xe(wave, fs, channels, f_min)    
-    
+    xe = gtgram_xe(wave, fs, channels, f_min)
+
     nwin, hop_samples, ncols = gtgram_strides(fs, window_time, hop_time, xe.shape[1])
     channels, ncols = int(channels), int(ncols)  # typing fro some compatibility reasons
     y = np.zeros((channels, ncols))
