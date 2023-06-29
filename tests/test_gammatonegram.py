@@ -57,7 +57,7 @@ class GTGramStrideTester:
     def __call__(self):
         results = gammatone.gtgram.gtgram_strides(*self.inputs)
 
-        diagnostic = "result: {:s}, expected: {:s}".format(str(results), str(self.expected))
+        "result: {:s}, expected: {:s}".format(str(results), str(self.expected))
 
         # These are integer values, so use direct equality
         assert results == self.expected
