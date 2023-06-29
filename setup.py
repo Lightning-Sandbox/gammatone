@@ -7,6 +7,7 @@ from setuptools import setup, find_packages
 setup(
     name="Gammatone",
     version="1.0.1",
+    author="Jason Heeris",
     packages=find_packages(exclude=["tests"]),
     install_requires=["numpy", "scipy", "matplotlib"],
     extras_require={"test": ["nose", "mock"]},

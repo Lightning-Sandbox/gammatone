@@ -2,8 +2,6 @@
 
 *Utilities for analysing sound using perceptual models of human hearing.*
 
-Jason Heeris, 2013
-
 ## Summary
 
 This is a port of Malcolm Slaney's and Dan Ellis' gammatone filterbank MATLAB
@@ -17,31 +15,23 @@ spectrogram analysis.
 
 You can install directly from this git repository using:
 
-```text
-pip install git+https://github.com/detly/gammatone.git
+```bash
+pip install https://github.com/Lightning-Sandbox/gammatone/archive/refs/heads/main.zip
 ```
 
-...or you can clone the git repository however you prefer, and do:
+... or you can clone the git repository however you prefer, and do:
 
-```text
+```bash
 pip install .
 ```
 
-...or:
+... or:
 
-```
+```bash
 python setup.py install
 ```
 
-...from the cloned tree.
-
-### Dependencies
-
-- numpy
-- scipy
-- nose
-- mock
-- matplotlib
+... from the cloned tree.
 
 ## Using the Code
 
@@ -49,14 +39,14 @@ See the [API documentation](http://detly.github.io/gammatone/). For a
 demonstration, find a `.wav` file (for example,
 [Für Elise](http://heeris.id.au/samples/FurElise.wav)) and run:
 
-```text
+```bash
 python -m gammatone FurElise.wav -d 10
 ```
 
-...to see a gammatone-gram of the first ten seconds of the track. If you've
+... to see a gammatone-gram of the first ten seconds of the track. If you've
 installed via `pip` or `setup.py install`, you should also be able to just run:
 
-```text
+```bash
 gammatone FurElise.wav -d 10
 ```
 
@@ -122,7 +112,6 @@ workflow:
 
 1. Run the scripts in the `test_generation` directory. This will create a
    `.mat` file containing test data in `tests/data`.
-
 1. Run `nosetest3` in the top level directory. This will find and run all the
    tests in the `tests` directory.
 

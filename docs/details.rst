@@ -15,15 +15,6 @@ similar to Fourier-based spectrogram analysis.
 
    Gammatone-based spectrogram of Für Elise
 
-Dependencies
-~~~~~~~~~~~~
-
--  numpy
--  scipy
--  nose
--  mock
--  matplotlib
-
 Using the Code
 ~~~~~~~~~~~~~~
 
@@ -109,7 +100,6 @@ the tests has the same workflow:
 
 1. Run the scripts in the ``test_generation`` directory. This will
    create a ``.mat`` file containing test data in ``tests/data``.
-
 2. Run ``nosetest3`` in the top level directory. This will find and run
    all the tests in the ``tests`` directory.
 
