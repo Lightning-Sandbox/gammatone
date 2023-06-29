@@ -11,7 +11,7 @@ code, detailed below, to Python 2 and 3 using Numpy and Scipy. It analyses signa
 running them through banks of gammatone filters, similar to Fourier-based
 spectrogram analysis.
 
-![Gammatone-based spectrogram of Für Elise](doc/FurElise.png)
+![Gammatone-based spectrogram of Für Elise](docs/FurElise.png)
 
 ## Installation
 
