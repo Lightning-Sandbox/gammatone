@@ -10,7 +10,7 @@ setup(
     packages = find_packages(),
 
     install_requires = [
-        'numpy <1.17.0',  # todo: search for actually compatible version
+        'numpy <1.13.0',  # todo: search for actually compatible version
         'scipy',
         'nose',
         'mock',
