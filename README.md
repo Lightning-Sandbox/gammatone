@@ -2,6 +2,9 @@
 
 *Utilities for analysing sound using perceptual models of human hearing.*
 
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Gammatone)](https://pypi.org/project/Gammatone/)
+[![PyPI Status](https://badge.fury.io/py/Gammatone.svg)](https://badge.fury.io/py/Gammatone)
+[![PyPI Status](https://pepy.tech/badge/Gammatone)](https://pepy.tech/project/Gammatone)
 [![CI testing](https://github.com/Lightning-Sandbox/gammatone/actions/workflows/ci-testing.yml/badge.svg?event=push)](https://github.com/Lightning-Sandbox/gammatone/actions/workflows/ci-testing.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Lightning-Sandbox/gammatone/main.svg)](https://results.pre-commit.ci/latest/github/Lightning-Sandbox/gammatone/main)
 
