@@ -3,10 +3,10 @@
 #
 # This file is part of the gammatone toolkit, and is licensed under the 3-clause
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
-from mock import patch
 import nose
 import numpy as np
 import scipy.io
+from mock import patch
 from pkg_resources import resource_stream
 
 import gammatone.fftweight
