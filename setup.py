@@ -9,7 +9,7 @@ from setuptools import find_packages, setup
 _PATH_ROOT = os.path.dirname(__file__)
 
 with open(os.path.join(_PATH_ROOT, "README.md"), encoding="utf-8") as fo:
-    readme = fo.read()
+    README = fo.read()
 
 setup(
     name="Gammatone",
@@ -18,7 +18,8 @@ setup(
     author_email="Jason@Heeri.me",
     url="https://github.com/Lightning-Sandbox/gammatone",
     download_url="https://github.com/Lightning-Sandbox/gammatone/archive/master.zip",
-    long_description=readme,
+    long_description=README,
+    python_requires=">=3.8",
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=["tests"]),
     install_requires=["numpy", "scipy", "matplotlib"],
