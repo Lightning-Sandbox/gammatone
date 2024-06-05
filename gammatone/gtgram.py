@@ -8,9 +8,10 @@ filterbanks instead of Fourier transforms.
 """
 
 from __future__ import division
+
 import numpy as np
 
-from .filters import make_erb_filters, centre_freqs, erb_filterbank
+from .filters import centre_freqs, erb_filterbank, make_erb_filters
 
 
 def round_half_away_from_zero(num):

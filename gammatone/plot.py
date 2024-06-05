@@ -6,7 +6,9 @@
 Plotting utilities related to gammatone analysis, primarily for use with
 ``matplotlib``.
 """
+
 from __future__ import division
+
 import argparse
 import os.path
 
@@ -16,9 +18,10 @@ import numpy as np
 import scipy.constants
 import scipy.io.wavfile
 
-from .filters import erb_point
-import gammatone.gtgram
 import gammatone.fftweight
+import gammatone.gtgram
+
+from .filters import erb_point
 
 
 class ERBFormatter(matplotlib.ticker.EngFormatter):

@@ -6,6 +6,7 @@
 This module contains functions for constructing sets of equivalent rectangular
 bandwidth gammatone filters.
 """
+
 from __future__ import division
 
 import numpy as np
