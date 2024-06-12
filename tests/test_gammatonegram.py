@@ -52,7 +52,7 @@ def test_gtgram(inputs, mocks, refs):
         inputs["twin"],
         inputs["thop"],
         inputs["channels"],
-        inputs["fmin"],
+        inputs["fmin"]
     )
     signal = np.asarray(inputs["wave"])
     expected = np.asarray(refs["gtgram"])

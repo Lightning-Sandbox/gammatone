@@ -48,7 +48,6 @@ addopts = [
 ]
 filterwarnings = [
     "ignore::FutureWarning",
-    "default:::torchmetrics",
 ]
 xfail_strict = true
 junit_duration_report = "call"
