@@ -19,7 +19,7 @@ RESULT_KEY = "fft_gammatonegram_results"
 INPUT_COLS = ("name", "wave", "fs", "twin", "thop", "channels", "fmin")
 MOCK_COLS = ("wts",)
 RESULT_COLS = ("res", "window", "nfft", "nwin", "nhop")
-
+# Load test data generated from the reference code
 with resource_stream(__name__, REF_DATA_FILENAME) as test_data:
     DATA = scipy.io.loadmat(test_data, squeeze_me=False)
 INPUTS_MOCKS_REFS_DICTS = [
