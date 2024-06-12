@@ -47,13 +47,7 @@ def test_nstrides(inputs, mocks, refs):
 
 @pytest.mark.parametrize("inputs,mocks,refs", INPUT_MOCK_REF_DICTS)
 def test_gtgram(inputs, mocks, refs):
-    args = (
-        inputs["fs"],
-        inputs["twin"],
-        inputs["thop"],
-        inputs["channels"],
-        inputs["fmin"]
-    )
+    args = (inputs["fs"], inputs["twin"], inputs["thop"], inputs["channels"], inputs["fmin"])
     signal = np.asarray(inputs["wave"])
     expected = np.asarray(refs["gtgram"])
     erb_fb_out = np.asarray(mocks["erb_fb"])
