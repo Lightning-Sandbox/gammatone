@@ -10,7 +10,7 @@ on:  # Trigger the workflow on push or pull request, but only for the main branc
 # based on https://github.com/pypa/gh-action-pypi-publish
 
 jobs:
-  build:
+  build-release-upload:
     runs-on: ubuntu-latest
 
     steps:
