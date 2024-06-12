@@ -22,13 +22,13 @@ RESULT_COLS = ("res", "window", "nfft", "nwin", "nhop")
 # Load test data generated from the reference code
 with resource_stream(__name__, REF_DATA_FILENAME) as test_data:
     DATA = scipy.io.loadmat(test_data, squeeze_me=False)
-INPUTS_MOCKS_REFS_DICTS = [
+INPUT_MOCK_REF_DICTS = [
     (dict(zip(INPUT_COLS, inputs)), dict(zip(MOCK_COLS, mocks)), dict(zip(RESULT_COLS, refs)))
     for inputs, mocks, refs in zip(DATA[INPUT_KEY], DATA[MOCK_KEY], DATA[RESULT_KEY])
 ]
 
 
-@pytest.mark.parametrize("inputs,mocks,refs", INPUTS_MOCKS_REFS_DICTS)
+@pytest.mark.parametrize("inputs,mocks,refs", INPUT_MOCK_REF_DICTS)
 def test_fft_specgram_window(inputs, mocks, refs):
     args = (refs["nfft"], refs["nwin"])
     nfft = args[0].squeeze()
@@ -40,7 +40,7 @@ def test_fft_specgram_window(inputs, mocks, refs):
     assert np.allclose(result, expected, rtol=1e-6, atol=2e-3), "Maximum difference: {:6e}".format(max_diff)
 
 
-@pytest.mark.parametrize("inputs,mocks,refs", INPUTS_MOCKS_REFS_DICTS)
+@pytest.mark.parametrize("inputs,mocks,refs", INPUT_MOCK_REF_DICTS)
 def test_fft_gtgram(inputs, mocks, refs):
     args = (inputs["fs"], inputs["twin"], inputs["thop"], inputs["channels"], inputs["fmin"])
     signal = np.asarray(inputs["wave"]).squeeze()
