@@ -38,3 +38,16 @@ convention = "google"
 [tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
+
+[tool.pytest.ini_options]
+norecursedirs = [".git", ".github", "dist", "build"]
+addopts = [
+    "--doctest-modules",
+    "--color=yes",
+    "--disable-pytest-warnings",
+]
+filterwarnings = [
+    "ignore::FutureWarning",
+]
+xfail_strict = true
+junit_duration_report = "call"

@@ -19,12 +19,10 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-22.04", "macOS-13", "windows-2022"]
-        python-version: ["3.8", "3.9"]
+        python-version: ["3.8", "3.11"]
 
     # Timeout: https://stackoverflow.com/a/59076067/4521646
     timeout-minutes: 10
-    env:
-      TORCH_URL: "https://download.pytorch.org/whl/cpu/torch_stable.html"
 
     steps:
     - uses: actions/checkout@v3
@@ -33,17 +31,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Get pip cache dir
-      id: pip-cache
-      run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-
-    - name: Cache pip
-      uses: actions/cache@v3
-      with:
-        path: ${{ steps.pip-cache.outputs.dir }}
-        key: pip-${{ hashFiles('setup.py') }}
-        restore-keys: pip-
-
     - name: Install package & dependencies
       run: |
         pip --version
@@ -51,4 +38,4 @@ jobs:
         pip list
 
     - name: Tests
-      run: python -m nose tests -v
+      run: pytest . -v
