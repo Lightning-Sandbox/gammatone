@@ -10,10 +10,12 @@ _PATH_ROOT = os.path.dirname(__file__)
 
 with open(os.path.join(_PATH_ROOT, "README.md"), encoding="utf-8") as fo:
     README = fo.read()
+# replace relative links with absolute links
+README = README.replace("](docs/", "](https://github.com/Lightning-Sandbox/gammatone/raw/main/docs/")
 
 setup(
     name="Gammatone",
-    version="1.0.1",
+    version="1.0.2",
     author="Jason Heeris",
     author_email="Jason@Heeri.me",
     url="https://github.com/Lightning-Sandbox/gammatone",
