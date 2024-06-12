@@ -5,12 +5,11 @@
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 from __future__ import division
 
+import gammatone.fftweight
 import numpy as np
 import pytest
 import scipy.io
 from pkg_resources import resource_stream
-
-import gammatone.fftweight
 
 REF_DATA_FILENAME = "data/test_fft2gtmx_data.mat"
 INPUT_KEY = "fft2gtmx_inputs"

@@ -4,13 +4,12 @@
 # This file is part of the gammatone toolkit, and is licensed under the 3-clause
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 
+import gammatone.gtgram
 import numpy as np
 import pytest
 import scipy.io
 from mock import patch
 from pkg_resources import resource_stream
-
-import gammatone.gtgram
 
 REF_DATA_FILENAME = "data/test_gammatonegram_data.mat"
 INPUT_KEY = "gammatonegram_inputs"

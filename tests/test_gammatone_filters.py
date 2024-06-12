@@ -4,12 +4,11 @@
 # This file is part of the gammatone toolkit, and is licensed under the 3-clause
 # BSD license: https://github.com/detly/gammatone/blob/master/COPYING
 
+import gammatone.filters
 import numpy as np
 import pytest
 import scipy.io
 from pkg_resources import resource_stream
-
-import gammatone.filters
 
 REF_DATA_FILENAME = "data/test_erb_filter_data.mat"
 INPUT_KEY = "erb_filter_inputs"
