@@ -40,10 +40,15 @@ convention = "google"
 max-complexity = 10
 
 [tool.pytest.ini_options]
-norecursedirs = [".git", ".github", "dist", "build", "docs"]
+norecursedirs = [".git", ".github", "dist", "build"]
 addopts = [
-    "--strict-markers",
     "--doctest-modules",
     "--color=yes",
     "--disable-pytest-warnings",
 ]
+filterwarnings = [
+    "ignore::FutureWarning",
+    "default:::torchmetrics",
+]
+xfail_strict = true
+junit_duration_report = "call"
