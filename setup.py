@@ -15,7 +15,7 @@ README = README.replace("](docs/", "](https://github.com/Lightning-Sandbox/gamma
 
 setup(
     name="Gammatone",
-    version="1.0.2",
+    version="1.0.3",
     author="Jason Heeris",
     author_email="Jason@Heeri.me",
     url="https://github.com/Lightning-Sandbox/gammatone",
