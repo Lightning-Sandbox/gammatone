@@ -48,7 +48,7 @@ def gtgram(wave, fs, window_time, hop_time, channels, f_min, f_max=None):
     """
     Calculate a spectrogram-like time frequency magnitude array based on
     gammatone subband filters. The waveform ``wave`` (at sample rate ``fs``) is
-    passed through an multi-channel gammatone auditory model filterbank, with
+    passed through a multi-channel gammatone auditory model filterbank, with
     lowest frequency ``f_min`` and highest frequency ``f_max``. The outputs of
     each band then have their energy integrated over windows of ``window_time``
     seconds, advancing by ``hop_time`` secs for successive columns. These
@@ -61,7 +61,7 @@ def gtgram(wave, fs, window_time, hop_time, channels, f_min, f_max=None):
     xe = gtgram_xe(wave, fs, channels, f_min, f_max)
 
     nwin, hop_samples, ncols = gtgram_strides(fs, window_time, hop_time, xe.shape[1])
-    channels, ncols = int(channels), int(ncols)  # typing fro some compatibility reasons
+    channels, ncols = int(channels), int(ncols)  # typing for some compatibility reasons
     y = np.zeros((channels, ncols))
 
     for cnum in range(ncols):
