@@ -21,6 +21,8 @@ from mock import patch
         ((22050, 100, 10), (10, 11025, 100)),
         ((22050, 1000, 100), (100, 11025, 1000)),
         ((160000, 500, 200), (200, 80000, 500)),
+        # add f_max parameter
+        ((22050, 100, 100, 10000), (100, 10000, 100)),
     ),
 )
 def test_centre_freqs(erb_space_mock, args, params):
