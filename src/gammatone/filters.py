@@ -56,7 +56,7 @@ def erb_space(low_freq=DEFAULT_LOW_FREQ, high_freq=DEFAULT_HIGH_FREQ, num=DEFAUL
     return erb_point(low_freq, high_freq, np.arange(1, num + 1) / num)
 
 
-def centre_freqs(fs, num_freqs, cutoff):
+def centre_freqs(fs, num_freqs, cutoff, f_max=None):
     """
     Calculates an array of centre frequencies (for :func:`make_erb_filters`)
     from a sampling frequency, lower cutoff frequency and the desired number of
@@ -66,9 +66,12 @@ def centre_freqs(fs, num_freqs, cutoff):
     :param num_freqs: number of centre frequencies to calculate
     :type num_freqs: int
     :param cutoff: lower cutoff frequency
+    :param f_max: upper cutoff frequency (default ``fs / 2``)
     :return: same as :func:`erb_space`
     """
-    return erb_space(cutoff, fs / 2, num_freqs)
+    if f_max is None:
+        f_max = fs / 2
+    return erb_space(cutoff, f_max, num_freqs)
 
 
 def make_erb_filters(fs, centre_freqs, width=1.0):
